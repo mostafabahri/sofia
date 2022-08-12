@@ -6,7 +6,7 @@
     {
       "label": "Mix test current file",
       "type": "shell",
-      "command": "mix test ${relativeFile}",
+      "command": "mix test --trace ${relativeFile}",
       "presentation": {
         "echo": true,
         "reveal": "always",
