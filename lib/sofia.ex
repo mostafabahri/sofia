@@ -3,16 +3,7 @@ defmodule Sofia do
   Documentation for `Sofia`.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Sofia.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def introduce do
+    %{name: 'sofia', admin: true}
   end
 end
