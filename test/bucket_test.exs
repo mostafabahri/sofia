@@ -8,6 +8,7 @@ defmodule BucketTest do
 
     KV.Bucket.put(bucket, "milk", 3)
 
+    ~w(hello hi there)
     assert KV.Bucket.get(bucket, "milk") == 3
   end
 end
