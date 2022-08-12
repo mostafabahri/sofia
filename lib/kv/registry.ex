@@ -1,6 +1,21 @@
 defmodule KV.Registry do
   use GenServer
 
+  # client parts
+
+  def start_link(opts \\ []) do
+    GenServer.start_link(__MODULE__, :ok, opts)
+  end
+
+  def lookup(server, name) do
+    GenServer.call(server, {:lookup, name})
+  end
+
+  def create(server, name) do
+    GenServer.cast(server, {:create, name})
+  end
+
+  # server parts
   @impl true
   def init(:ok) do
     {:ok, %{}}
