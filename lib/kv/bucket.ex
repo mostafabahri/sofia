@@ -8,6 +8,6 @@ defmodule KV.Bucket do
   end
 
   def put(bucket, key, value) do
-    Agent.update(bucket, fn map -> Map.put(map, key, value) end)
+    Agent.update(bucket, &Map.put(&1, key, value))
   end
 end
