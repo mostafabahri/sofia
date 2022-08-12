@@ -1,13 +1,12 @@
 defmodule KV.RegistryTest do
   use ExUnit.Case, async: true
 
-  test "pattern" do
-    KV.Registry.get({:find, "someone"}) == "foundsomeone"
-    assert KV.Registry.get([]) == "empty"
+  test "registry lookup" do
+    {:ok, registry} = GenServer.start_link(KV.Registry, :ok)
+    assert GenServer.cast(registry, {:create, "shopping"}) == :ok
+    {:ok, bucket} = GenServer.call(registry, {:lookup, "shopping"})
 
-    assert KV.Registry.get({:lookup, "jason"}, :there, "list of names") == [
-             "jason",
-             "list of names"
-           ]
+    KV.Bucket.put(bucket, "milk", 3)
+    assert KV.Bucket.get(bucket, "milk") == 3
   end
 end

@@ -1,17 +1,23 @@
 defmodule KV.Registry do
-  def get([_head | tail]) do
-    tail
+  use GenServer
+
+  @impl true
+  def init(:ok) do
+    {:ok, %{}}
   end
 
-  def get([]) do
-    "empty"
+  @impl true
+  def handle_call({:lookup, name}, _from, names) do
+    {:reply, Map.fetch(names, name), names}
   end
 
-  def get({:find, name}) do
-    "found" <> name
-  end
-
-  def get({:lookup, name}, _from, names) do
-    [name, names]
+  @impl true
+  def handle_cast({:create, name}, names) do
+    if Map.has_key?(names, name) do
+      {:noreply, names}
+    else
+      {:ok, bucket} = KV.Bucket.start_link()
+      {:noreply, Map.put(names, name, bucket)}
+    end
   end
 end
