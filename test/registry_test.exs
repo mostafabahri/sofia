@@ -2,7 +2,7 @@ defmodule KV.RegistryTest do
   use ExUnit.Case, async: true
 
   test "registry lookup" do
-    {:ok, registry} = KV.Registry.start_link()
+    registry = start_supervised!(KV.Registry)
     assert KV.Registry.create(registry, "shopping") == :ok
     {:ok, bucket} = KV.Registry.lookup(registry, "shopping")
 
